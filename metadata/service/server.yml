@@ -1,0 +1,6 @@
+applications:
+  - glusterfs
+parameters:
+  glusterfs:
+    server:
+      enabled: true
