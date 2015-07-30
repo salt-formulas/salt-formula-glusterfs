@@ -72,6 +72,12 @@ gluster peer.
               - ${_param:cluster_node01_address}:/srv/glusterfs/glance
               - ${_param:cluster_node02_address}:/srv/glusterfs/glance
               - ${_param:cluster_node03_address}:/srv/glusterfs/glance
+              options:
+                cluster.readdir-optimize: On
+                nfs.disable: On
+                network.remote-dio: On
+                diagnostics.client-log-level: WARNING
+                diagnostics.brick-log-level: WARNING
        client:
          volumes:
            glance:

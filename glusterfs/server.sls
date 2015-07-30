@@ -39,13 +39,33 @@ glusterfs_vol_{{ name }}:
     - stripe: {{ volume.stripe }}
     {%- endif %}
     - bricks: {{ volume.bricks }}
-    - start: true
     {# Parameter force doesn't exist in Salt 2015.5.2 and without it creation
     will fail when brick is on root disk #}
     - force: true
     - require:
       - glusterfs: glusterfs_peers
       - file: {{ volume.storage }}
+
+glusterfs_vol_{{ name }}_start:
+  glusterfs.started:
+    - name: {{ name }}
+    - require:
+      - glusterfs: glusterfs_vol_{{ name }}
+
+{%- if volume.options is defined %}
+{%- for key, value in volume.options.iteritems() %}
+
+glusterfs_vol_{{ name }}_{{ key }}:
+  cmd.run:
+    - name: "gluster volume set '{{ name }}' '{{ key }}' '{{ value }}'"
+    - unless: "gluster volume info '{{ name }}' | grep '{{ key }}: {{ value }}'"
+    - require:
+      - glusterfs: glusterfs_vol_{{ name }}
+    - require_in:
+      - glusterfs: glusterfs_vol_{{ name }}_start
+
+{%- endfor %}
+{%- endif %}
 
 {%- endfor %}
 {%- endif %}
