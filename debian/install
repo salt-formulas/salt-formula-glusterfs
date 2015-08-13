@@ -1,0 +1,2 @@
+glusterfs/*             /usr/share/salt-formulas/env/glusterfs/
+metadata/service/*      /usr/share/salt-formulas/reclass/service/glusterfs/
