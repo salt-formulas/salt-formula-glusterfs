@@ -15,7 +15,7 @@ glusterfs_mount_{{ name }}:
     - device: {{ volume.server }}:/{{ name }}
     - fstype: glusterfs
     - mkmnt: true
-    - opts: {{ volume.get('opts', 'defaults') }}
+    - opts: {{ volume.get('opts', 'defaults,nobootwait') }}
     - require:
       - pkg: glusterfs_client_packages
 
