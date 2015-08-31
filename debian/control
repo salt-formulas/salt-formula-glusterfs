@@ -5,8 +5,8 @@ Priority: optional
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.6
 Homepage: http://www.tcpcloud.eu
-Vcs-Browser: https://git.tcpcloud.eu/salt-formulas/glusterfs-formula
-Vcs-Git: https://git.tcpcloud.eu/salt-formulas/glusterfs-formula.git
+Vcs-Browser: https://github.com/tcpcloud/salt-glusterfs-formula
+Vcs-Git: https://github.com/tcpcloud/salt-glusterfs-formula.git
 
 Package: salt-formula-glusterfs
 Architecture: all
