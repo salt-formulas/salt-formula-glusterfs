@@ -1,0 +1,15 @@
+Source: salt-formula-glusterfs
+Maintainer: Filip Pytloun <filip.pytloun@tcpcloud.eu>
+Section: admin
+Priority: optional
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: http://www.tcpcloud.eu
+Vcs-Browser: https://git.tcpcloud.eu/salt-formulas/glusterfs-formula
+Vcs-Git: https://git.tcpcloud.eu/salt-formulas/glusterfs-formula.git
+
+Package: salt-formula-glusterfs
+Architecture: all
+Depends: ${misc:Depends}, salt-master, reclass
+Description: GlusterFS Salt formula
+ Install and configure GlusterFS server and client.
