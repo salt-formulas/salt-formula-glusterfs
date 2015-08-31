@@ -1,7 +1,7 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: salt-formula-glusterfs
 Upstream-Contact: Filip Pytloun <filip.pytloun@tcpcloud.eu>
-Source: https://github.com/tcpcloud/salt-glusterfs-formula
+Source: https://github.com/tcpcloud/salt-formula-glusterfs
 
 Files: *
 Copyright: 2014-2015 tcp cloud
