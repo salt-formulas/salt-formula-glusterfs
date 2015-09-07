@@ -13,7 +13,17 @@ Available states
 ``glusterfs.server``
 --------------------
 
-Setup GlusterFS server
+Setup GlusterFS server (including both service and setup)
+
+``glusterfs.server.service``
+----------------------------
+
+Setup and start GlusterFS server service
+
+``glusterfs.server.setup``
+----------------------------
+
+Setup GlusterFS peers and volumes
 
 ``glusterfs.client``
 --------------------
