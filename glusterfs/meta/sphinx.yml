@@ -1,0 +1,14 @@
+doc:
+  name: GlusterFS
+  description: An open source, distributed file system capable of scaling to several petabytes and handling thousands of clients.
+  role:
+  {%- if pillar.glusterfs.server is defined %}
+    server:
+      name: server
+      param: {}
+  {%- endif %}
+  {%- if pillar.glusterfs.client is defined %}
+    dashboard:
+      name: client
+      param: {}
+  {%- endif %}
