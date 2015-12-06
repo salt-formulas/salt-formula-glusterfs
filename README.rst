@@ -118,6 +118,7 @@ Server
             - 172.168.1.21:/srv/glusterfs/glance
             - 172.168.1.21:/srv/glusterfs/glance
             - 172.168.1.21:/srv/glusterfs/glance
+       enabled: true
 
 Client
 ------
@@ -132,6 +133,7 @@ Client
            server: 192.168.1.21
            user: glance
            group: glance
+       enabled: true
 
 Read more
 =========
