@@ -1,0 +1,8 @@
+{%- from "linux/map.jinja" import network with context -%}
+check:
+  local_glusterfs_status_{{ network.fqdn }}::
+    command: "PATH=$PATH:/etc/sensu/plugins check_glusterfs -v glance -n 3 -w 50 -c 30"
+    interval: 60
+    occurrences: 1
+    subscribers:
+    - local-glusterfs-server
