@@ -4,7 +4,7 @@
         'service': 'glusterfs-server',
     },
     'RedHat': {
-        'pkgs': ['glusterfs-server'],
+        'pkgs': ['glusterfs'],
         'service': 'glusterd',
     },
 }, merge=salt['pillar.get']('glusterfs:server')) %}
@@ -14,6 +14,6 @@
         'pkgs': ['glusterfs-client'],
     },
     'RedHat': {
-        'pkgs': ['glusterfs-client'],
+        'pkgs': ['glusterfs-fuse'],
     },
 }, merge=salt['pillar.get']('glusterfs:client')) %}
