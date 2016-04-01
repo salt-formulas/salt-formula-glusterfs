@@ -5,7 +5,8 @@ check:
 {%- for volume_name, volume in server.get('volumes', {}).iteritems() %}
   local_glusterfs_status_{{ volume_name }}_{{ network.fqdn }}:
     command: "PATH=$PATH:/etc/sensu/plugins check_glusterfs -v {{ volume_name }} -n {{ volume.bricks|length }} -w 5 -c 1"
-    interval: 60
+    {%- set interval=300+(loop.index*5) %}
+    interval: {{ interval }}
     occurrences: 1
     subscribers:
     - local-glusterfs-server
