@@ -2,9 +2,9 @@
 {%- from "glusterfs/map.jinja" import server with context -%}
 {%- if pillar.glusterfs.server is defined %}
 check:
-{%- for volume_name in server.get('volumes', {}).iterkeys() %}
+{%- for volume_name, volume in server.get('volumes', {}).iteritems() %}
   local_glusterfs_status_{{ volume_name }}_{{ network.fqdn }}::
-    command: "PATH=$PATH:/etc/sensu/plugins check_glusterfs -v {{ volume_name }} -n 3 -w 50 -c 30"
+    command: "PATH=$PATH:/etc/sensu/plugins check_glusterfs -v {{ volume_name }} -n {{ volume.bricks|length }} -w 50 -c 30"
     interval: 60
     occurrences: 1
     subscribers:
