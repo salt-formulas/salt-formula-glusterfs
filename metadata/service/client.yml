@@ -1,5 +1,7 @@
 applications:
   - glusterfs
+classes:
+  - service.glusterfs.support
 parameters:
   glusterfs:
     client:
