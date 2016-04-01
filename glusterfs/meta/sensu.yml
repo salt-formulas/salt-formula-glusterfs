@@ -1,8 +1,11 @@
 {%- from "linux/map.jinja" import network with context -%}
+{%- from "glusterfs/map.jinja" import server with context -%}
 check:
+{%- for volume_name in server.get('volumes', {}).iterkeys() %}
   local_glusterfs_status_{{ network.fqdn }}::
-    command: "PATH=$PATH:/etc/sensu/plugins check_glusterfs -v glance -n 3 -w 50 -c 30"
+    command: "PATH=$PATH:/etc/sensu/plugins check_glusterfs -v {{ volume_name }} -n 3 -w 50 -c 30"
     interval: 60
     occurrences: 1
     subscribers:
     - local-glusterfs-server
+{%- endfor %}

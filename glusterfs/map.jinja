@@ -1,10 +1,10 @@
 {% set server = salt['grains.filter_by']({
     'Debian': {
-        'pkgs': ['glusterfs-server'],
+        'pkgs': ['glusterfs-server','bc'],
         'service': 'glusterfs-server',
     },
     'RedHat': {
-        'pkgs': ['glusterfs-server'],
+        'pkgs': ['glusterfs-server','bc'],
         'service': 'glusterd',
     },
 }, merge=salt['pillar.get']('glusterfs:server')) %}
