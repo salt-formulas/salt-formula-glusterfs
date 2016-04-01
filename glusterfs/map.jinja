@@ -11,7 +11,7 @@
 
 {% set client = salt['grains.filter_by']({
     'Debian': {
-        'pkgs': ['glusterfs-client'],
+        'pkgs': ['glusterfs-client','bc'],
         'mount_defaults': 'defaults,nobootwait',
     },
     'RedHat': {
