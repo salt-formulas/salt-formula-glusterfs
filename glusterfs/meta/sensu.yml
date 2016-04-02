@@ -3,11 +3,11 @@
 {%- if pillar.glusterfs.server is defined %}
 check:
 {%- for volume_name, volume in server.get('volumes', {}).iteritems() %}
-  local_glusterfs_status_{{ volume_name }}_{{ network.fqdn }}:
+  local_glusterfs_status_{{ volume_name }}:
     command: "PATH=$PATH:/etc/sensu/plugins check_glusterfs -v {{ volume_name }} -n {{ volume.bricks|length }} -w 5 -c 1"
-    {%- set interval=120+(loop.index*5)+range(1,60)|random %}
+    {%- set interval=320+(loop.index*5) %}
     interval: {{ interval }}
-    occurrences: 3
+    occurrences: 1
     subscribers:
     - local-glusterfs-server
 {%- endfor %}
