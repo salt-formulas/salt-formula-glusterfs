@@ -12,6 +12,7 @@ check:
     command: "PATH=$PATH:/etc/sensu/plugins check_glusterfs -v {{ volume_name }} -n {{ volume.bricks|length }} -w 5 -c 1"
     {%- set interval=320+(loop.index*5) %}
     interval: {{ interval }}
+    timeout: 120
     occurrences: 1
     subscribers:
     - local-glusterfs-server
