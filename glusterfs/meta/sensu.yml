@@ -1,7 +1,7 @@
 {%- from "glusterfs/map.jinja" import server with context -%}
 {%- if pillar.glusterfs.server is defined %}
 check:
-  local_glusterd_proc_{{ grains['fqdn'] }}:
+  local_glusterd_proc:
     command: "PATH=$PATH:/usr/lib64/nagios/plugins:/usr/lib/nagios/plugins check_procs -C glusterd -u root -c 1:1"
     interval: 60
     occurrences: 1
