@@ -1,5 +1,5 @@
-{%- from "glusterfs/map.jinja" import server with context -%}
 {%- if pillar.glusterfs.server is defined %}
+{%- from "glusterfs/map.jinja" import server with context -%}
 check:
   local_glusterd_proc:
     command: "PATH=$PATH:/usr/lib64/nagios/plugins:/usr/lib/nagios/plugins check_procs -C glusterd -u root -c 1:1"
@@ -30,3 +30,5 @@ check:
     subscribers:
     - {{ grains['fqdn']|replace('.', '-') }}
 {%- endif %}
+
+{#- vim: syntax=jinja -#}

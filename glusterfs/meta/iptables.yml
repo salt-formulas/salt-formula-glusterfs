@@ -1,0 +1,35 @@
+{%- if pillar.glusterfs.server is defined -%}
+{%- from "glusterfs/map.jinja" import server with context -%}
+
+iptables:
+  rules:
+    {%- for peer in server.peers %}
+    - destination_port: 11211
+      protocol: tcp
+      source_network: {{ peer }}/32
+      jump: ACCEPT
+    - destination_port: 111
+      protocol: tcp
+      source_network: {{ peer }}/32
+      jump: ACCEPT
+    - protocol: udp
+      destination_port: 111
+      source_network: {{ peer }}/32
+      jump: ACCEPT
+    - destination_port: '49152:49192'
+      protocol: tcp
+      source_network: {{ peer }}/32
+      jump: ACCEPT
+    - destination_port: '24007:24047'
+      protocol: tcp
+      source_network: {{ peer }}/32
+      jump: ACCEPT
+    - destination_port: '38465:38467'
+      protocol: tcp
+      source_network: {{ peer }}/32
+      jump: ACCEPT
+    {%- endfor %}
+
+{%- endif -%}
+
+{#- vim: syntax=jinja -#}
