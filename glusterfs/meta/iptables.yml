@@ -32,4 +32,6 @@ iptables:
 
 {%- endif -%}
 
-{#- vim: syntax=jinja -#}
+{#-
+vim: syntax=jinja
+-#}
