@@ -50,6 +50,7 @@ glusterfs_vol_{{ name }}:
     {%- endif %}
     - bricks: {{ volume.bricks }}
     - force: true
+    - start: true
     - require:
       - glusterfs: glusterfs_peers
       - file: {{ volume.storage }}
