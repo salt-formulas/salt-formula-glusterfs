@@ -8,7 +8,9 @@ glusterfs_server_setup:
   salt.state:
     - tgt: 'roles:glusterfs.server'
     - tgt_type: grain
+    {%- if grains['saltversion'] < "2016.3.0" %}
     - batch: 1
+    {%- endif %}
     - sls: glusterfs.server.setup
     - require:
       - salt: glusterfs_server_service
