@@ -8,6 +8,7 @@ glusterfs_server_setup:
   salt.state:
     - tgt: 'roles:glusterfs.server'
     - tgt_type: grain
+    - batch: 1
     - sls: glusterfs.server.setup
     - require:
       - salt: glusterfs_server_service
