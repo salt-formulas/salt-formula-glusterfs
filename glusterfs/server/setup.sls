@@ -1,6 +1,6 @@
 {% from "glusterfs/map.jinja" import server with context %}
 
-{%- if grains['saltversion'] < "2015.8.0" %}
+{%- if grains['saltversion'] < "2016.3.0" %}
 {# Parameter force doesn't exist in Salt 2015.8 and without it volume
 creation will fail when brick is on root partition #}
 {% set force_compatibility = True %}
