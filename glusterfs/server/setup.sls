@@ -58,14 +58,18 @@ glusterfs_vol_{{ name }}:
 {%- endif %}
 
 glusterfs_vol_{{ name }}_start:
+  {%- if force_compatibility %}
+  cmd.run:
+    - name: gluster volume start {{ name }}
+    - unless: gluster volume info {{ name }} | grep "Status: Started"
+    - require:
+      - cmd: glusterfs_vol_{{ name }}
+  {%- else %}
   glusterfs.started:
     - name: {{ name }}
     - require:
-      {%- if force_compatibility %}
-      - cmd: glusterfs_vol_{{ name }}
-      {%- else %}
       - glusterfs: glusterfs_vol_{{ name }}
-      {%- endif %}
+  {%- endif %}
 
 {%- if volume.options is defined %}
 {%- for key, value in volume.options.iteritems() %}
