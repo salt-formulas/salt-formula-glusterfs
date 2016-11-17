@@ -1,0 +1,3 @@
+dashboard:
+  glusterfs:
+    template: glusterfs/files/grafana_influxdb.json

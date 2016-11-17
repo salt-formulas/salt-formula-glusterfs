@@ -11,3 +11,5 @@ parameters:
         enabled: true
       iptables:
         enabled: true
+      grafana:
+        enabled: true
