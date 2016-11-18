@@ -1,0 +1,53 @@
+log_collector:
+  decoder:
+    glusterfs:
+      engine: sandbox
+      module_file: /usr/share/lma_collector/decoders/glusterfs.lua
+      module_dir: /usr/share/lma_collector/common;/usr/share/heka/lua_modules
+      adjust_timezone: true
+  input:
+{% if pillar.glusterfs.server is defined %}
+{% from "glusterfs/map.jinja" import server with context %}
+{%- if server.get('enabled', False) %}
+    glusterd:
+      engine: logstreamer
+      log_directory: "/var/log"
+      file_match: 'glusterfs/etc-glusterfs-glusterd.vol\.log$'
+      differentiator: ["glusterfs.glusterd"]
+      decoder: "glusterfs_decoder"
+      splitter: "glusterfs_splitter"
+    glustershd:
+      engine: logstreamer
+      log_directory: "/var/log"
+      file_match: 'glusterfs/glustershd\.log$'
+      differentiator: ["glusterfs.glustershd"]
+      decoder: "glusterfs_decoder"
+      splitter: "glusterfs_splitter"
+    glusterfsd:
+      engine: logstreamer
+      log_directory: "/var/log"
+      file_match: 'glusterfs/bricks/srv-glusterfs-(?P<Brick>[^.]+)\.log$'
+      differentiator: ["glusterfs.glusterfsd.","Brick"]
+      decoder: "glusterfs_decoder"
+      splitter: "glusterfs_splitter"
+{%- endif %}
+{%- endif %}
+{% if pillar.glusterfs.client is defined %}
+{% from "glusterfs/map.jinja" import client with context %}
+{%- if client.get('enabled', False) and client.volumes is defined %}
+{%- for name, volume in client.volumes.iteritems() %}
+    gluster_volume_{{name}}:
+      engine: logstreamer
+      log_directory: "/var/log"
+      file_match: 'glusterfs/(?P<MountPoint>{{ volume.path|replace('/', '', 1)|replace('/', '-') }})\.log$'
+      differentiator: ["glusterfs.","MountPoint"]
+      decoder: "glusterfs_decoder"
+      splitter: "glusterfs_splitter"
+{%- endfor %}
+{%- endif %}
+{%- endif %}
+  splitter:
+    glusterfs:
+      engine: regex
+      delimiter: '\n(\\[[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{6}\\])'
+      delimiter_eol: false
