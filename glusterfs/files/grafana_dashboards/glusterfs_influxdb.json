@@ -1,0 +1,1363 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "gnetId": null,
+  "hideControls": false,
+  "id": null,
+  "links": [],
+  "refresh": "1m",
+  "rows": [
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "colorBackground": true,
+          "colorValue": false,
+          "colors": [
+            "rgba(225, 40, 40, 0.59)",
+            "rgba(241, 181, 37, 0.73)",
+            "rgba(71, 212, 59, 0.4)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 11,
+          "interval": "> 60s",
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "column": "value",
+              "condition": "",
+              "dsType": "influxdb",
+              "fill": "",
+              "function": "last",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "groupByTags": [],
+              "groupby_field": "",
+              "interval": "",
+              "measurement": "glusterfs_check",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"nginx\" WHERE \"environment_label\" = '$environment'  AND $timeFilter GROUP BY time($interval) fill(null)",
+              "rawQuery": false,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1",
+          "title": "$server status",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "no data",
+              "value": "null"
+            },
+            {
+              "op": "=",
+              "text": "DOWN",
+              "value": "0"
+            },
+            {
+              "op": "=",
+              "text": "UP",
+              "value": "1"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 14,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "glusterfs_peers_percent",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "state",
+                  "operator": "=",
+                  "value": "up"
+                }
+              ]
+            }
+          ],
+          "thresholds": "",
+          "title": "Peers up",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgb(249, 24, 24)",
+            "thresholdLine": false
+          },
+          "id": 15,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_peer",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "peer"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "glusterfs_peer_state",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Peer state",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "transparent": false,
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": "state (down=0, up=1)",
+              "logBase": 1,
+              "max": 1,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "title": "Peers"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgb(249, 24, 24)",
+            "thresholdLine": false
+          },
+          "id": 16,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeatIteration": 1479736313733,
+          "scopedVars": {
+            "volume": {
+              "selected": false,
+              "text": "glance",
+              "value": "glance"
+            }
+          },
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "used",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "glusterfs_space_free",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "peer",
+                  "operator": "=~",
+                  "value": "/^$peer$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "volume",
+                  "operator": "=~",
+                  "value": "/^$volume$/"
+                }
+              ]
+            },
+            {
+              "alias": "free",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "glusterfs_space_free",
+              "policy": "default",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "peer",
+                  "operator": "=~",
+                  "value": "/^$peer$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "volume",
+                  "operator": "=~",
+                  "value": "/^$volume$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Disk space",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "transparent": false,
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgb(249, 24, 24)",
+            "thresholdLine": false
+          },
+          "id": 17,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeatIteration": 1479736313733,
+          "scopedVars": {
+            "volume": {
+              "selected": false,
+              "text": "glance",
+              "value": "glance"
+            }
+          },
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "used",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "glusterfs_inodes_used",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "peer",
+                  "operator": "=~",
+                  "value": "/^$peer$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "volume",
+                  "operator": "=~",
+                  "value": "/^$volume$/"
+                }
+              ]
+            },
+            {
+              "alias": "free",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "glusterfs_inodes_free",
+              "policy": "default",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "peer",
+                  "operator": "=~",
+                  "value": "/^$peer$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "volume",
+                  "operator": "=~",
+                  "value": "/^$volume$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Inodes",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "transparent": false,
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": "volume",
+      "scopedVars": {
+        "volume": {
+          "selected": false,
+          "text": "glance",
+          "value": "glance"
+        }
+      },
+      "showTitle": true,
+      "title": "$volume volume"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgb(249, 24, 24)",
+            "thresholdLine": false
+          },
+          "id": 18,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeatIteration": 1479736313733,
+          "scopedVars": {
+            "volume": {
+              "selected": false,
+              "text": "keystone-keys",
+              "value": "keystone-keys"
+            }
+          },
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "used",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "glusterfs_space_free",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "peer",
+                  "operator": "=~",
+                  "value": "/^$peer$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "volume",
+                  "operator": "=~",
+                  "value": "/^$volume$/"
+                }
+              ]
+            },
+            {
+              "alias": "free",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "glusterfs_space_free",
+              "policy": "default",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "peer",
+                  "operator": "=~",
+                  "value": "/^$peer$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "volume",
+                  "operator": "=~",
+                  "value": "/^$volume$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Disk space",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "transparent": false,
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgb(249, 24, 24)",
+            "thresholdLine": false
+          },
+          "id": 19,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeatIteration": 1479736313733,
+          "scopedVars": {
+            "volume": {
+              "selected": false,
+              "text": "keystone-keys",
+              "value": "keystone-keys"
+            }
+          },
+          "seriesOverrides": [],
+          "span": 6,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "used",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "glusterfs_inodes_used",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "peer",
+                  "operator": "=~",
+                  "value": "/^$peer$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "volume",
+                  "operator": "=~",
+                  "value": "/^$volume$/"
+                }
+              ]
+            },
+            {
+              "alias": "free",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "glusterfs_inodes_free",
+              "policy": "default",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "environment_label",
+                  "operator": "=~",
+                  "value": "/^$environment$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "hostname",
+                  "operator": "=~",
+                  "value": "/^$server$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "peer",
+                  "operator": "=~",
+                  "value": "/^$peer$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "volume",
+                  "operator": "=~",
+                  "value": "/^$volume$/"
+                }
+              ]
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Inodes",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "transparent": false,
+          "type": "graph",
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": 1479736313733,
+      "repeatRowId": 2,
+      "scopedVars": {
+        "volume": {
+          "selected": false,
+          "text": "keystone-keys",
+          "value": "keystone-keys"
+        }
+      },
+      "showTitle": true,
+      "title": "$volume volume"
+    }
+  ],
+  "schemaVersion": 12,
+  "sharedCrosshair": true,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "enable": true,
+    "list": [
+      {
+        "allFormat": "regex values",
+        "current": {},
+        "datasource": null,
+        "hide": 0,
+        "includeAll": false,
+        "name": "environment",
+        "options": [],
+        "query": "show tag values from glusterfs_check with key = environment_label",
+        "refresh": 1,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allFormat": "glob",
+        "current": {},
+        "datasource": null,
+        "hide": 0,
+        "includeAll": false,
+        "name": "server",
+        "options": [],
+        "query": "show tag values from glusterfs_check with key = hostname where environment_label =~ /^$environment$/",
+        "refresh": 1,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allFormat": "glob",
+        "current": {},
+        "datasource": null,
+        "hide": 0,
+        "includeAll": false,
+        "name": "peer",
+        "options": [],
+        "query": "show tag values from glusterfs_inodes_free with key = peer where environment_label =~ /^$environment$/ and hostname =~ /^$server$/",
+        "refresh": 1,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allFormat": "glob",
+        "current": {},
+        "datasource": null,
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "volume",
+        "options": [],
+        "query": "show tag values from glusterfs_inodes_free with key = volume where environment_label =~ /^$environment$/ and hostname =~ /^$server$/",
+        "refresh": 1,
+        "refresh_on_load": true,
+        "regex": "",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "collapse": false,
+    "enable": true,
+    "notice": false,
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "status": "Stable",
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ],
+    "type": "timepicker"
+  },
+  "timezone": "browser",
+  "title": "GlusterFS",
+  "version": 30
+}

@@ -1,0 +1,9 @@
+{%- if pillar.glusterfs.server is defined %}
+{% from "glusterfs/map.jinja" import server with context %}
+{%- if server.get('enabled', False) %}
+local_plugin:
+  collectd_glusterfs:
+    plugin: python
+    template: glusterfs/files/collectd_glusterfs.conf
+{%- endif %}
+{%- endif %}
