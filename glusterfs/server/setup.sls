@@ -61,7 +61,7 @@ glusterfs_vol_{{ name }}_start:
   {%- if force_compatibility %}
   cmd.run:
     - name: gluster volume start {{ name }}
-    - unless: gluster volume info {{ name }} | grep "Status: Started"
+    - unless: "gluster volume info {{ name }} | grep 'Status: Started'"
     - require:
       - cmd: glusterfs_vol_{{ name }}
   {%- else %}
