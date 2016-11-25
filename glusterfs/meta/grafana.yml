@@ -1,4 +1,4 @@
 dashboard:
   glusterfs:
     format: json
-    template: glusterfs/files/grafana_influxdb.json
+    template: glusterfs/files/grafana_dashboards/glusterfs_influxdb.json
