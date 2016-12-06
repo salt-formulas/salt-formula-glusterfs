@@ -1,3 +1,8 @@
+{% from "glusterfs/map.jinja" import client with context %}
+{% from "glusterfs/map.jinja" import server with context %}
+{% set server_enabled = server.get('enabled', False) %}
+{% set client_enabled = client.get('enabled', False) %}
+{%- if server_enabled or client_enabled %}
 log_collector:
   decoder:
     glusterfs:
@@ -6,9 +11,7 @@ log_collector:
       module_dir: /usr/share/lma_collector/common;/usr/share/heka/lua_modules
       adjust_timezone: true
   input:
-{% if pillar.glusterfs.server is defined %}
-{% from "glusterfs/map.jinja" import server with context %}
-{%- if server.get('enabled', False) %}
+{%- if server_enabled %}
     glusterd:
       engine: logstreamer
       log_directory: "/var/log"
@@ -31,11 +34,8 @@ log_collector:
       decoder: "glusterfs_decoder"
       splitter: "glusterfs_splitter"
 {%- endif %}
-{%- endif %}
-{% if pillar.glusterfs.client is defined %}
-{% from "glusterfs/map.jinja" import client with context %}
-{%- if client.get('enabled', False) and client.volumes is defined %}
-{%- for name, volume in client.volumes.iteritems() %}
+{%- if client_enabled %}
+{%- for name, volume in client.get('volumes', {}).iteritems() %}
     gluster_volume_{{name}}:
       engine: logstreamer
       log_directory: "/var/log"
@@ -45,9 +45,43 @@ log_collector:
       splitter: "glusterfs_splitter"
 {%- endfor %}
 {%- endif %}
-{%- endif %}
   splitter:
     glusterfs:
       engine: regex
       delimiter: '\n(\\[[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{6}\\])'
       delimiter_eol: false
+{%- endif %}
+{%- if server_enabled %}
+metric_collector:
+  trigger:
+    glusterfs_check:
+      description: 'GlusterFS service cannot be checked'
+      severity: down
+      rules:
+      - metric: glusterfs_check
+        relational_operator: '=='
+        threshold: 0
+        window: 60
+        periods: 0
+        function: last
+  alarm:
+    glusterfs_check:
+      alerting: enabled
+      triggers:
+      - glusterfs_check
+      dimension:
+        service: glusterfs
+aggregator:
+  alarm_cluster:
+    glusterfs:
+      policy: availability_of_members
+      alerting: enabled_with_notification
+      match:
+        service: glusterfs
+      group_by: hostname
+      members:
+      - glusterfs_check
+      dimension:
+        cluster_name: glusterfs
+        nagios_host: 00-top-clusters
+{%- endif %}
