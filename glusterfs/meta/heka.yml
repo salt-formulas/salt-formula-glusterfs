@@ -70,15 +70,25 @@ metric_collector:
       triggers:
       - glusterfs_check
       dimension:
-        service: glusterfs
+        service: glusterfs-check
 aggregator:
   alarm_cluster:
-    glusterfs:
+    glusterfs_check:
       policy: availability_of_members
+      alerting: enabled
+      match:
+        service: glusterfs-check
+      group_by: hostname
+      members:
+      - glusterfs_check
+      dimension:
+        service: glusterfs
+        nagios_host: 01-service-clusters
+    glusterfs:
+      policy: highest_severity
       alerting: enabled_with_notification
       match:
         service: glusterfs
-      group_by: hostname
       members:
       - glusterfs_check
       dimension:
