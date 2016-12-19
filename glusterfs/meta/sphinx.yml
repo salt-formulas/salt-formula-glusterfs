@@ -5,10 +5,31 @@ doc:
   {%- if pillar.glusterfs.server is defined %}
     server:
       name: server
-      param: {}
+      param:
+        version:
+          value: "{{ salt['cmd.run']('gluster --version|head -1') }}"
+        {%- if pillar.glusterfs.server.get('peers', []) %}
+        peers:
+          value: {{ pillar.glusterfs.server.peers|yaml }}
+        {%- endif %}
+        {%- if pillar.glusterfs.server.get('volumes', {}) %}
+        volumes:
+          value:
+            {%- for name, volume in pillar.glusterfs.server.volumes.iteritems() %}
+            {{ name }}: "{{ volume.storage }}"
+            {%- endfor %}
+        {%- endif %}
   {%- endif %}
   {%- if pillar.glusterfs.client is defined %}
-    dashboard:
+    client:
       name: client
-      param: {}
+      param:
+        {%- if pillar.glusterfs.client.get('volumes', {}) %}
+        mounts:
+          value:
+            {%- for name, volume in pillar.glusterfs.client.volumes.iteritems() %}
+            {{ name }}: {{ volume.path }}
+            {%- endfor %}
+        {%- endif %}
+
   {%- endif %}
