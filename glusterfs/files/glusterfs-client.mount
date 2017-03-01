@@ -1,0 +1,17 @@
+[Unit]
+Description=GlusterFS File System ({{ device }})
+DefaultDependencies=yes
+
+[Mount]
+What={{ device }}
+Where={{ path }}
+Type=glusterfs
+Options={{ options }}
+
+[Install]
+WantedBy=multi-user.target
+WantedBy=remote-fs.target
+
+{#-
+vim: syntax=jinja
+-#}
