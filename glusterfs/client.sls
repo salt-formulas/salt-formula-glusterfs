@@ -23,6 +23,7 @@ glusterfs_systemd_mount_{{ name }}:
         path: {{ volume.path }}
         device: {{ volume.server }}:/{{ name }}
         options: {{ volume.get('opts', client.mount_defaults) }}
+        timeout: {{ volume.get('timeout', 300) }}
 
 glusterfs_mount_{{ name }}:
   service.running:
