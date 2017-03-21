@@ -16,10 +16,21 @@ include:
 {%- if server.peers is defined %}
 
 glusterfs_peers:
-    glusterfs.peered:
-      - names: {{ server.peers }}
-      - require:
-        - service: glusterfs_service
+  glusterfs.peered:
+    - names: {{ server.peers }}
+    - require:
+      - service: glusterfs_service
+
+{#-
+  `gluster peer probe` seems to be async, we need to give Gluster some time to
+  settle, especially on slower deployments. Otherwise later volume creations
+  may fail.
+#}
+glusterfs_peers_wait:
+  cmd.wait:
+    - name: sleep 5
+    - watch_in:
+      - glusterfs: glusterfs_peers
 
 {%- endif %}
 
@@ -36,6 +47,8 @@ glusterfs_vol_{{ name }}:
         {%- if volume.stripe is defined %} stripe {{ volume.stripe }} \{% endif %}
         {{ volume.bricks|join(' ') }} force
     - unless: "gluster volume info {{ name }}"
+    - require:
+      - cmd: glusterfs_peers_wait
 
 {%- else %}
 
@@ -52,7 +65,7 @@ glusterfs_vol_{{ name }}:
     - force: true
     - start: true
     - require:
-      - glusterfs: glusterfs_peers
+      - cmd: glusterfs_peers_wait
       - file: {{ volume.storage }}
 
 {%- endif %}
