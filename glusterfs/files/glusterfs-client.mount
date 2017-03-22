@@ -7,7 +7,7 @@ What={{ device }}
 Where={{ path }}
 Type=glusterfs
 Options={{ options }}
-Timeout={{ timeout|default(300) }}
+TimeoutSec={{ timeout|default(300) }}
 
 [Install]
 WantedBy=multi-user.target
