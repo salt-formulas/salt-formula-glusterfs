@@ -25,6 +25,8 @@ glusterfs_systemd_mount_{{ name }}:
         options: {{ volume.get('opts', client.mount_defaults) }}
         timeout: {{ volume.get('timeout', 300) }}
 
+{%- if not grains.get('noservices', False) %}
+
 glusterfs_mount_{{ name }}:
   service.running:
     - name: {{ path_escaped }}.mount
@@ -32,7 +34,9 @@ glusterfs_mount_{{ name }}:
     - watch:
       - file: glusterfs_systemd_mount_{{ name }}
 
-{%- else %}
+{%- endif %}
+
+{%- elif grains.get('virtual_subtype', None) not in ['Docker', 'LXC'] %}
 
 glusterfs_mount_{{ name }}:
   mount.mounted:
@@ -47,6 +51,9 @@ glusterfs_mount_{{ name }}:
 {%- endif %}
 
 {# Fix privileges on mount #}
+
+{%- if grains.get('virtual_subtype', None) not in ['Docker', 'LXC'] %}
+
 {%- if volume.user is defined or volume.group is defined %}
 
 glusterfs_dir_{{ name }}:
@@ -63,7 +70,7 @@ glusterfs_dir_{{ name }}:
       {%- endif %}
 
 {%- endif %}
-
+{%- endif %}
 {%- endfor %}
 {%- endif %}
 
