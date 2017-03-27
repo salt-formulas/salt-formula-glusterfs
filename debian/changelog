@@ -1,3 +1,9 @@
+salt-formula-glusterfs (2017.3) trusty; urgency=medium
+
+  * New version
+
+ -- Filip Pytloun <filip.pytloun@tcpcloud.eu>  Mon, 27 Mar 2017 11:45:37 +0200
+
 salt-formula-glusterfs (0.1) trusty; urgency=medium
 
   * Initial release
