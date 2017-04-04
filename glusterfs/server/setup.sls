@@ -9,10 +9,12 @@ creation will fail when brick is on root partition #}
 {%- endif %}
 
 {%- if server.enabled %}
+{%- if not grains.get('noservices', False) %}
 
 include:
 - glusterfs.server.service
 
+{%- endif %}
 {%- if server.peers is defined %}
 
 glusterfs_peers:
