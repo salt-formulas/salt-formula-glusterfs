@@ -12,11 +12,11 @@ glusterfs_client_packages:
 {%- if grains.get('init', None) == 'systemd' %}
 {#- Don't use fstab when on systemd-enabled system,
     workaround for SaltStack bug #39757 #}
-{%- set path_escaped = volume.path|replace('/', '', 1)|replace('/', '-') %}
+{%- set path_escaped = salt['cmd.run']('systemd-escape -p --suffix=mount '+volume.path)  %}
 
 glusterfs_systemd_mount_{{ name }}:
   file.managed:
-    - name: /etc/systemd/system/{{ path_escaped }}.mount
+    - name: /etc/systemd/system/{{ path_escaped }}
     - source: salt://glusterfs/files/glusterfs-client.mount
     - template: jinja
     - defaults:
@@ -27,7 +27,7 @@ glusterfs_systemd_mount_{{ name }}:
 
 glusterfs_mount_{{ name }}:
   service.running:
-    - name: {{ path_escaped }}.mount
+    - name: {{ path_escaped }}
     - enable: true
     - watch:
       - file: glusterfs_systemd_mount_{{ name }}
