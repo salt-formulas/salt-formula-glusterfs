@@ -9,7 +9,8 @@ log_collector:
       engine: sandbox
       module_file: /usr/share/lma_collector/decoders/glusterfs.lua
       module_dir: /usr/share/lma_collector/common;/usr/share/heka/lua_modules
-      adjust_timezone: true
+      # GlusterFS logs are always UTC
+      adjust_timezone: false
   input:
 {%- if server_enabled %}
     glusterd:
