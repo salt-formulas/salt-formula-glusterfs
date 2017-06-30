@@ -9,6 +9,8 @@ glusterfs_client_packages:
 {%- if client.volumes is defined %}
 {%- for name, volume in client.volumes.iteritems() %}
 
+{%- if not grains.get('noservices', False) %}
+
 {%- if grains.get('init', None) == 'systemd' %}
 {#- Don't use fstab when on systemd-enabled system,
     workaround for SaltStack bug #39757 #}
@@ -47,6 +49,7 @@ glusterfs_mount_{{ name }}:
 {%- endif %}
 
 {# Fix privileges on mount #}
+
 {%- if volume.user is defined or volume.group is defined %}
 
 glusterfs_dir_{{ name }}:
@@ -61,9 +64,8 @@ glusterfs_dir_{{ name }}:
       {%- else %}
       - mount: glusterfs_mount_{{ name }}
       {%- endif %}
-
 {%- endif %}
-
+{%- endif %}
 {%- endfor %}
 {%- endif %}
 
