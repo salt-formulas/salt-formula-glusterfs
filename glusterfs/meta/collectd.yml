@@ -5,7 +5,7 @@ local_plugin:
   collectd_glusterfs:
     plugin: python
     {%- if server.check_timeout is defined %}
-    timeout: {{ server.check_timeout }} 
+    timeout: {{ server.check_timeout }}
     {%- endif %}
     template: glusterfs/files/collectd_glusterfs.conf
 {%- endif %}

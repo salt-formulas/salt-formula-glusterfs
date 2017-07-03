@@ -1,0 +1,13 @@
+{%- if pillar.glusterfs.server is defined %}
+{% from "glusterfs/map.jinja" import server, monitoring with context %}
+{%- if server.get('enabled', False) %}
+agent:
+  input:
+    glusterfs:
+      template: glusterfs/files/telegraf.conf
+{%- if monitoring.interval is defined or server.check_timeout is defined %}
+      interval: {{ monitoring.interval|default(server.check_timeout) }}
+{%- endif %}
+      use_sudo: true
+{%- endif %}
+{%- endif %}
