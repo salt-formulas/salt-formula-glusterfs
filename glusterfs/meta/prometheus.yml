@@ -1,0 +1,17 @@
+{%- from "glusterfs/map.jinja" import server with context %}
+
+{%- if server.get('enabled', False) %}
+{%- raw %}
+server:
+  alert:
+    GlusterFSDown:
+      if: >-
+        glusterfs_up != 1
+      labels:
+        severity: warning
+        service: glusterfs
+      annotations:
+        summary: 'GlusterFS service down'
+        description: 'GlusterFS service is down on node {{ $labels.host }}'
+{%- endraw %}
+{%- endif %}
