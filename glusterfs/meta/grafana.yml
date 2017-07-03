@@ -1,4 +1,9 @@
 dashboard:
-  glusterfs:
+  glusterfs_influxdb:
+    datasource: influxdb
     format: json
     template: glusterfs/files/grafana_dashboards/glusterfs_influxdb.json
+  glusterfs_prometheus:
+    datasource: prometheus
+    format: json
+    template: glusterfs/files/grafana_dashboards/glusterfs_prometheus.json
