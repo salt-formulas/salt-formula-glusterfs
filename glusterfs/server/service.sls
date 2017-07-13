@@ -15,9 +15,10 @@ glusterfs_service:
 {%- if server.volumes is defined %}
 {%- for name, volume in server.volumes.iteritems() %}
 
-{{ volume.storage }}:
+gluster_volume_{{ volume.storage }}:
   file.directory:
-    - makedirs: true
+  - name: {{ volume.storage }}
+  - makedirs: true
 
 {%- endfor %}
 {%- endif %}
