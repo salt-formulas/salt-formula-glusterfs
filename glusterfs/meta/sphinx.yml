@@ -7,7 +7,7 @@ doc:
       name: server
       param:
         version:
-          value: "{{ salt['cmd.run']('gluster --version|head -1') }}"
+          value: "{{ salt['cmd.run']('gluster --version 2>/dev/null || echo "unknown"|head -1') }}"
         {%- if pillar.glusterfs.server.get('peers', []) %}
         peers:
           value: {{ pillar.glusterfs.server.peers|yaml }}
