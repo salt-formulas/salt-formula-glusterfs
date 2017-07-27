@@ -1,6 +1,12 @@
 [Unit]
 Description=GlusterFS File System ({{ device }})
 DefaultDependencies=yes
+{%- if pillar.glusterfs.server is defined %}
+{% from "glusterfs/map.jinja" import server with context %}
+{%- if server.enabled %}
+After={{ server.service }}.service
+{%- endif %}
+{%- endif %}
 
 [Mount]
 What={{ device }}
