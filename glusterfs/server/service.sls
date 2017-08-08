@@ -21,7 +21,7 @@ glusterfs_server_systemd_override:
     - makedirs: true
     - contents: |
         [Service]
-        ExecStartPost=/bin/sleep 10
+        ExecStartPost=/bin/sleep 5
 {%- endif %}
 
 {%- if server.volumes is defined %}
