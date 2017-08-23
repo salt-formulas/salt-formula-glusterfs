@@ -62,7 +62,7 @@ metric_collector:
       - metric: glusterfs_check
         relational_operator: '=='
         threshold: 0
-        window: 60
+        window: 150
         periods: 0
         function: last
   alarm:

@@ -5,9 +5,7 @@ agent:
   input:
     glusterfs:
       template: glusterfs/files/telegraf.conf
-{%- if monitoring.interval is defined or server.check_timeout is defined %}
-      interval: {{ monitoring.interval|default(server.check_timeout) }}
-{%- endif %}
+      interval: 60s
       use_sudo: true
 {%- endif %}
 {%- endif %}
