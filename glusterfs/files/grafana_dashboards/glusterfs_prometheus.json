@@ -18,7 +18,7 @@
         {
           "cacheTimeout": null,
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
@@ -78,7 +78,7 @@
               "step": 60
             }
           ],
-          "thresholds": "",
+          "thresholds": "0.5,0.5",
           "title": "Status",
           "type": "singlestat",
           "valueFontSize": "80%",
