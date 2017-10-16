@@ -18,7 +18,14 @@
         'pkgs': ['glusterfs-fuse'],
         'mount_defaults': 'defaults',
     },
-}, merge=salt['pillar.get']('glusterfs:client')) %}
+}, merge=salt['grains.filter_by']({
+    'trusty': {
+        'mount_defaults': 'defaults,nobootwait'
+    },
+    'xenial': {
+        'mount_defaults': 'defaults,nofail'
+    },
+}, grain='oscodename', merge=salt['pillar.get']('glusterfs:client'))) %}
 
 {% set monitoring = salt['grains.filter_by']({
     'default': {}
