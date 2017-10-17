@@ -22,7 +22,7 @@ glusterfs_systemd_mount_{{ name }}:
     - defaults:
         path: {{ volume.path }}
         device: {{ volume.server }}:/{{ name }}
-        options: {{ volume.get('opts', client.mount_defaults) }}
+        options: {{ volume.get('opts', client.systemd_mount_defaults) }}
         timeout: {{ volume.get('timeout', 300) }}
 
 glusterfs_mount_{{ name }}:
