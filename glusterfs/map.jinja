@@ -9,14 +9,21 @@
     },
 }, merge=salt['pillar.get']('glusterfs:server')) %}
 
+{% if salt['grains.get']('init') == "systemd" -%}
+    {% set mount_defaults = "defaults" %}
+{% else %}
+    {% set mount_defaults = "defaults,nobootwait" %}
+{% endif %}
+
 {% set client = salt['grains.filter_by']({
     'Debian': {
         'pkgs': ['glusterfs-client', 'attr'],
-        'mount_defaults': 'defaults,nobootwait',
+        'mount_defaults': mount_defaults,
     },
     'RedHat': {
         'pkgs': ['glusterfs-fuse'],
         'mount_defaults': 'defaults',
+        'systemd_mount_defaults': 'defaults',
     },
 }, merge=salt['pillar.get']('glusterfs:client')) %}
 
