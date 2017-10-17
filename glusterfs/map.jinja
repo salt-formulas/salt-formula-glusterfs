@@ -10,9 +10,9 @@
 }, merge=salt['pillar.get']('glusterfs:server')) %}
 
 {% if salt['grains.get']('init') == "systemd" -%}
-        {% set mount_defaults = "defaults" %}
+    {% set mount_defaults = "defaults" %}
 {% else %}
-        {% set mount_defaults = "defaults,nobootwait" %}
+    {% set mount_defaults = "defaults,nobootwait" %}
 {% endif %}
 
 {% set client = salt['grains.filter_by']({
