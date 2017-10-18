@@ -7,3 +7,18 @@ dashboard:
     datasource: prometheus
     format: json
     template: glusterfs/files/grafana_dashboards/glusterfs_prometheus.json
+  main_prometheus:
+    datasource: prometheus
+    row:
+      ost-middleware:
+        title: Middleware
+        panel:
+          glusterfs:
+            title: GlusterFS
+            links:
+            - dashboard: GlusterFS
+              title: GlusterFS
+              type: dashboard
+            target:
+              cluster_status:
+                expr: avg(glusterfs_up) by (name)
