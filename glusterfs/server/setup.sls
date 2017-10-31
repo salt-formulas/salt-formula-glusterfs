@@ -54,7 +54,14 @@ glusterfs_vol_{{ name }}:
 {%- else %}
 
 glusterfs_vol_{{ name }}:
+  {%- if grains['saltversioninfo'][0] < 2017 or
+        (grains['saltversioninfo'][0] == 2017 and grains['saltversioninfo'][1] < 7) %}
+  {# glusterfs.created is renamed to glusterfs.volume_present in salt 2017.7
+     so maintain backward compatibility #}
   glusterfs.created:
+  {%- else %}
+  glusterfs.volume_present:
+  {%- endif %}
     - name: {{ name }}
     {%- if volume.replica is defined %}
     - replica: {{ volume.replica }}
