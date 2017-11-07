@@ -1,0 +1,86 @@
+{% from "glusterfs/map.jinja" import client with context %}
+{% from "glusterfs/map.jinja" import server with context %}
+{% set server_enabled = server.get('enabled', False) %}
+{% set client_enabled = client.get('enabled', False) %}
+config:
+  label:
+    glusterfs:
+      input:
+{%- if server_enabled %}
+        tail_glusterd_log_file:
+          type: tail
+          path: /var/log/glusterfs/etc-glusterfs-glusterd.vol.log
+          tag: glusterfs.glusterd
+          pos_file: /var/log/td-agent/tmp/glusterfs.glusterd.pos
+          parser:
+            type: multiline
+            time_key: Timestamp
+            time_format: '%Y-%m-%d %H:%M:%S.%N'
+            keep_time_key: false
+            format_firstline: >-
+              '/^\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}\]/'
+            format: >-
+              '/^(\[(?<Timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6})\] (?<orig_severity_label>[TDINWECA]) (?<Payload>.*))/'
+        tail_glustershd_log_file:
+          type: tail
+          path: /var/log/glusterfs/glustershd.log
+          tag: glusterfs.glustershd
+          pos_file: /var/log/td-agent/tmp/glusterfs.glustershd.pos
+          parser:
+            type: multiline
+            time_key: Timestamp
+            time_format: '%Y-%m-%d %H:%M:%S.%N'
+            keep_time_key: false
+            format_firstline: >-
+              '/^\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}\]/'
+            format: >-
+              '/^(\[(?<Timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6})\] (?<orig_severity_label>[TDINWECA]) (?<Payload>.*))/'
+        tail_bricks_log_files:
+          type: tail
+          path: /var/log/glusterfs/bricks/srv-glusterfs-*
+          tag: glusterfs.brick
+          pos_file: /var/log/td-agent/tmp/glusterfs.brick.pos
+          parser:
+            type: multiline
+            time_key: Timestamp
+            time_format: '%Y-%m-%d %H:%M:%S.%N'
+            keep_time_key: false
+            format_firstline: >-
+              '/^\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}\]/'
+            format: >-
+              '/^(\[(?<Timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6})\] (?<orig_severity_label>[TDINWECA]) (?<Payload>.*))/'
+{%- endif %}
+{%- if client_enabled %}
+        tail_client_log_files:
+          type: tail
+          path: /var/log/glusterfs/var-lib-*
+          tag: glusterfs.client
+          pos_file: /var/log/td-agent/tmp/glusterfs.client.pos
+          parser:
+            type: multiline
+            time_key: Timestamp
+            time_format: '%Y-%m-%d %H:%M:%S.%N'
+            keep_time_key: false
+            format_firstline: >-
+              '/^\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}\]/'
+            format: >-
+              '/^(\[(?<Timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6})\] (?<orig_severity_label>[TDINWECA]) (?<Payload>.*))/'
+{%- endif %}
+      filter:
+        add_programname_unify_severity:
+          tag: glusterfs.*
+          type: record_transformer
+          enable_ruby: true
+          remove_keys: orig_severity_label
+          record:
+            - name: severity_label
+              value: ${ {'T'=>'TRACE','D'=>'DEBUG','I'=>'INFO','N'=>'NOTICE','W'=>'WARNING','E'=>'ERROR','C'=>'CRITICAL','A'=>'ALERT'}[record['orig_severity_label']] }
+            - name: Severity
+              value: ${ {'T'=>7,'D'=>7,'I'=>6,'N'=>5,'W'=>4,'E'=>3,'C'=>2,'A'=>1}[record['orig_severity_label']].to_i }
+            - name: programname
+              value: glusterd
+      match:
+        push_to_default:
+          tag: glusterfs.*
+          type: relabel
+          label: default_output
