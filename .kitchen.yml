@@ -1,0 +1,49 @@
+---
+driver:
+  name: docker
+  hostname: glusterfs.ci.local
+  use_sudo: false
+
+provisioner:
+  name: salt_solo
+  salt_install: bootstrap
+  salt_bootstrap_url: https://bootstrap.saltstack.com
+  salt_version: latest
+  require_chef: false
+  log_level: error
+  formula: glusterfs
+  grains:
+    noservices: True
+  state_top:
+    base:
+      "*":
+        - glusterfs
+  pillars:
+    top.sls:
+      base:
+        "*":
+          - glusterfs
+
+verifier:
+  name: inspec
+  sudo: true
+
+
+platforms:
+  - name: <%=ENV['PLATFORM'] || 'ubuntu-xenial'%>
+    driver_config:
+      image: <%=ENV['PLATFORM'] || 'trevorj/salty-whales:xenial'%>
+      platform: ubuntu
+
+suites:
+
+  - name: glusterfs_client
+    provisioner:
+      pillars-from-files:
+        glusterfs.sls: tests/pillar/glusterfs_client.sls
+
+  - name: glusterfs_server
+    provisioner:
+      pillars-from-files:
+        glusterfs.sls: tests/pillar/glusterfs_server.sls
+# vim: ft=yaml sw=2 ts=2 sts=2 tw=125

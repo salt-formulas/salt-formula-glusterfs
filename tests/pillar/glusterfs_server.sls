@@ -13,4 +13,8 @@ glusterfs:
         - 172.168.1.21:/srv/glusterfs/glance
         - 172.168.1.21:/srv/glusterfs/glance
    enabled: true
-
+fluentd:
+  agent:
+    enabled: true
+    dir:
+      positiondb: /var/lib/fluentd/positiondb

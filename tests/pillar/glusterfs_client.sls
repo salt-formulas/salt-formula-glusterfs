@@ -7,4 +7,8 @@ glusterfs:
        user: glance
        group: glance
    enabled: true
-
+fluentd:
+  agent:
+    enabled: true
+    dir:
+      positiondb: /var/lib/fluentd/positiondb
