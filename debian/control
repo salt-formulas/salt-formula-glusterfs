@@ -10,6 +10,6 @@ Vcs-Git: https://github.com/tcpcloud/salt-formula-glusterfs.git
 
 Package: salt-formula-glusterfs
 Architecture: all
-Depends: ${misc:Depends}, salt-master, reclass
+Depends: ${misc:Depends}
 Description: GlusterFS Salt formula
  Install and configure GlusterFS server and client.
