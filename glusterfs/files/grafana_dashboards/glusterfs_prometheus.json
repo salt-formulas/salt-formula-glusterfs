@@ -71,7 +71,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "glusterfs_up{host=\"$host\"}",
+              "expr": "max(glusterfs_up)",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A",
@@ -159,7 +159,7 @@
           "tableColumn": "",
           "targets": [
             {
-              "expr": "count(glusterfs_peer_state{host=\"$host\"} == 1)",
+              "expr": "count(glusterfs_peer_state == 1)",
               "format": "time_series",
               "intervalFactor": 2,
               "refId": "A",
@@ -230,7 +230,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "glusterfs_space_used{host=\"$host\",peer=~\"^$peer$\",volume=~\"^$volume$\"}",
+              "expr": "glusterfs_space_used{peer=~\"^$peer$\",volume=~\"^$volume$\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "used ({{ volume }})",
@@ -238,7 +238,7 @@
               "step": 10
             },
             {
-              "expr": "glusterfs_space_free{host=\"$host\",peer=~\"^$peer$\",volume=~\"^$volume$\"}",
+              "expr": "glusterfs_space_free{peer=~\"^$peer$\",volume=~\"^$volume$\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "free ({{ volume }})",
@@ -321,7 +321,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "glusterfs_inodes_used{host=\"$host\",peer=~\"^$peer$\",volume=~\"$volume$\"}",
+              "expr": "glusterfs_inodes_used{peer=~\"^$peer$\",volume=~\"$volume$\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "used ({{ volume }})",
@@ -329,7 +329,7 @@
               "step": 10
             },
             {
-              "expr": "glusterfs_inodes_free{host=\"$host\",peer=~\"^$peer$\",volume=~\"$volume$\"}",
+              "expr": "glusterfs_inodes_free{peer=~\"^$peer$\",volume=~\"$volume$\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "free ({{ volume }})",
@@ -424,7 +424,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "glusterfs_space_used{host=\"$host\",peer=~\"^$peer$\",volume=~\"$volume$\"}",
+              "expr": "glusterfs_space_used{peer=~\"^$peer$\",volume=~\"$volume$\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "used ({{ volume }})",
@@ -432,7 +432,7 @@
               "step": 10
             },
             {
-              "expr": "glusterfs_space_free{host=\"$host\",peer=~\"^$peer$\",volume=~\"$volume$\"}",
+              "expr": "glusterfs_space_free{peer=~\"^$peer$\",volume=~\"$volume$\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "free ({{ volume }})",
@@ -515,7 +515,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "glusterfs_inodes_used{host=\"$host\",peer=~\"^$peer$\",volume=~\"$volume$\"}",
+              "expr": "glusterfs_inodes_used{peer=~\"^$peer$\",volume=~\"$volume$\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "used ({{ volume }})",
@@ -523,7 +523,7 @@
               "step": 10
             },
             {
-              "expr": "glusterfs_inodes_free{host=\"$host\",peer=~\"^$peer$\",volume=~\"$volume$\"}",
+              "expr": "glusterfs_inodes_free{peer=~\"^$peer$\",volume=~\"$volume$\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "free ({{ volume }})",
@@ -618,7 +618,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "glusterfs_space_used{host=\"$host\",peer=~\"^$peer$\",volume=~\"$volume$\"}",
+              "expr": "glusterfs_space_used{peer=~\"^$peer$\",volume=~\"$volume$\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "used ({{ volume }})",
@@ -626,7 +626,7 @@
               "step": 10
             },
             {
-              "expr": "glusterfs_space_free{host=\"$host\",peer=~\"^$peer$\",volume=~\"$volume$\"}",
+              "expr": "glusterfs_space_free{peer=~\"^$peer$\",volume=~\"$volume$\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "free ({{ volume }})",
@@ -709,7 +709,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "glusterfs_inodes_used{host=\"$host\",peer=~\"^$peer$\",volume=~\"$volume$\"}",
+              "expr": "glusterfs_inodes_used{peer=~\"^$peer$\",volume=~\"$volume$\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "used ({{ volume }})",
@@ -717,7 +717,7 @@
               "step": 10
             },
             {
-              "expr": "glusterfs_inodes_free{host=\"$host\",peer=~\"^$peer$\",volume=~\"$volume$\"}",
+              "expr": "glusterfs_inodes_free{peer=~\"^$peer$\",volume=~\"$volume$\"}",
               "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "free ({{ volume }})",
@@ -781,33 +781,12 @@
         "current": {},
         "datasource": "prometheus",
         "hide": 0,
-        "includeAll": false,
-        "label": null,
-        "multi": false,
-        "name": "host",
-        "options": [],
-        "query": "label_values(glusterfs_up,host)",
-        "refresh": 1,
-        "refresh_on_load": true,
-        "regex": "",
-        "sort": 1,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": null,
-        "current": {},
-        "datasource": "prometheus",
-        "hide": 0,
         "includeAll": true,
         "label": null,
         "multi": true,
         "name": "peer",
         "options": [],
-        "query": "label_values(glusterfs_inodes_free{host=\"$host\"},peer)",
+        "query": "label_values(glusterfs_inodes_free,peer)",
         "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
@@ -828,7 +807,7 @@
         "multi": true,
         "name": "volume",
         "options": [],
-        "query": "label_values(glusterfs_space_used{host=\"$host\",peer=~\"^$peer$\"},volume)",
+        "query": "label_values(glusterfs_space_used{peer=~\"^$peer$\"},volume)",
         "refresh": 1,
         "refresh_on_load": true,
         "regex": "",
