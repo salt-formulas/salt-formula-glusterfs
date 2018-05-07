@@ -29,6 +29,10 @@
 
 {% set monitoring = salt['grains.filter_by']({
     'default': {
-        'glusterfs_service_host': '127.0.0.1'
+        'glusterfs_service_host': '127.0.0.1',
+        'inodes_percent_used_minor_threshold_percent': 0.8,
+        'inodes_percent_used_major_threshold_percent': 0.9,
+        'space_percent_used_minor_threshold_percent': 0.8,
+        'space_percent_used_major_threshold_percent': 0.9
     }
 }, merge=salt['pillar.get']('glusterfs:monitoring')) %}

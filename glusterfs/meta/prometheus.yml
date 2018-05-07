@@ -1,18 +1,74 @@
-{%- from "glusterfs/map.jinja" import server with context %}
-
+{%- from "glusterfs/map.jinja" import server, monitoring with context %}
 {%- if server.get('enabled', False) %}
-{%- raw %}
 server:
   alert:
-    GlusterFSDown:
+    GlusterfsServiceOutage:
       if: >-
         glusterfs_up != 1
       for: 2m
       labels:
-        severity: warning
+        severity: critical
         service: glusterfs
       annotations:
-        summary: 'GlusterFS service down'
-        description: 'GlusterFS service is down on node {{ $labels.host }}'
-{%- endraw %}
+        summary: "GlusterFS service outage"
+        description: "All GlusterFS services are down."
+    GlusterfsInodesUsedMinor:
+      if: >-
+        glusterfs_inodes_percent_used >= {{ monitoring.inodes_percent_used_minor_threshold_percent*100 }} and glusterfs_inodes_percent_used < {{ monitoring.inodes_percent_used_major_threshold_percent*100 }}
+  {%- raw %}
+      for: 2m
+      labels:
+        severity: minor
+        service: glusterfs
+      annotations:
+        summary: "{%- endraw %}{{ monitoring.inodes_percent_used_minor_threshold_percent*100 }}%{%- raw %} of inodes are used on volume"
+        description: "{{ $value }}% of GlusterFS {{ $labels.volume }} volume inodes are used for more than 2 minutes."
+  {%- endraw %}
+    GlusterfsServiceMinor:
+      if: >-
+        procstat_running{process_name="glusterd"} < 1
+  {%- raw %}
+      labels:
+        severity: minor
+        service: glusterfs
+      annotations:
+        summary: "GlusterFS service is down"
+        description: "The GlusterFS service on the {{ $labels.host }} host is down."
+  {%- endraw %}
+    GlusterfsInodesUsedMajor:
+      if: >-
+        glusterfs_inodes_percent_used >= {{ monitoring.inodes_percent_used_major_threshold_percent*100 }}
+  {%- raw %}
+      for: 2m
+      labels:
+        severity: major
+        service: glusterfs
+      annotations:
+        summary: "{%- endraw %}{{ monitoring.inodes_percent_used_major_threshold_percent*100 }}%{%- raw %} of inodes are used on volume"
+        description: "{{ $value }}% of GlusterFS {{ $labels.volume }} volume inodes are used for more than 2 minutes."
+  {%- endraw %}
+    GlusterfsSpaceUsedMinor:
+      if: >-
+        glusterfs_space_percent_used >= {{ monitoring.space_percent_used_minor_threshold_percent*100 }} and glusterfs_space_percent_used < {{ monitoring.space_percent_used_major_threshold_percent*100 }}
+  {%- raw %}
+      for: 2m
+      labels:
+        severity: minor
+        service: glusterfs
+      annotations:
+        summary: "{%- endraw %}{{ monitoring.space_percent_used_minor_threshold_percent*100 }}%{%- raw %} of disk space is used on volume"
+        description: "{{ $value }}% of GlusterFS {{ $labels.volume }} volume disk space is used for more than 2 minutes."
+  {%- endraw %}
+    GlusterfsSpaceUsedMajor:
+      if: >-
+        glusterfs_space_percent_used <= {{ monitoring.space_percent_used_major_threshold_percent*100 }}
+  {%- raw %}
+      for: 2m
+      labels:
+        severity: major
+        service: glusterfs
+      annotations:
+        summary: "{%- endraw %}{{ monitoring.space_percent_used_major_threshold_percent*100 }}%{%- raw %} of disk space is used on volume"
+        description: "{{ $value }}% of GlusterFS {{ $labels.volume }} volume disk space is used for more than 2 minutes."
+  {%- endraw %}
 {%- endif %}
