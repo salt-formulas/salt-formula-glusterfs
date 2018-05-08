@@ -1,6 +1,12 @@
 {%- if pillar.glusterfs.server is defined %}
 {% from "glusterfs/map.jinja" import server, monitoring with context %}
 {%- if server.get('enabled', False) %}
+agent:
+  input:
+    procstat:
+      process:
+        glusterd:
+          exe: glusterd
 remote_agent:
   input:
     glusterfs:
