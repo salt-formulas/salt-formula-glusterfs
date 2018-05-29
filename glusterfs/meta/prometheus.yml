@@ -61,7 +61,7 @@ server:
   {%- endraw %}
     GlusterfsSpaceUsedMajor:
       if: >-
-        glusterfs_space_percent_used <= {{ monitoring.space_percent_used_major_threshold_percent*100 }}
+        glusterfs_space_percent_used >= {{ monitoring.space_percent_used_major_threshold_percent*100 }}
   {%- raw %}
       for: 2m
       labels:
