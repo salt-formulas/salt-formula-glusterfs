@@ -120,6 +120,19 @@ Server
             - 172.168.1.21:/srv/glusterfs/glance
        enabled: true
 
+Server with forced peer UUID (for peer recovery)
+------------------------------------------------
+
+.. code-block:: yaml
+
+   glusterfs:
+     server:
+       recover_peers:
+         kvm03.testserver.local:
+           enabled: true
+           uuid: ab6ac060-68f1-4f0b-8de4-70241dfb2279
+
+
 Client
 ------
 

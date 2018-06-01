@@ -6,6 +6,37 @@ glusterfs_packages:
   pkg.installed:
     - names: {{ server.pkgs }}
 
+
+{%- if server.recover_peers is defined %}
+{%- for peer_name, peer_data in server.recover_peers.iteritems() %}
+{%- if peer_data.get('enabled', False) and grains.get('fqdn', 'unknown') == peer_name %}
+
+force_peer_uuid:
+  file.managed:
+    - source: salt://glusterfs/files/glusterd.info
+    - name: /var/lib/glusterd/glusterd.info
+    - template: jinja
+    - makedirs: True
+    - defaults:
+        uuid: {{ peer_data.uuid }}
+
+stop_glusterfs_service:
+  service.dead:
+    - name: {{ server.service }}
+    - onchanges:
+      - file: force_peer_uuid
+
+
+glusterfs_sleep:
+  cmd.wait:
+    - name: sleep 5
+    - watch-in:
+      - service: stop_glusterfs_service
+
+{%- endif %}
+{%- endfor %}
+{%- endif %}
+
 glusterfs_service:
   service.running:
     - name: {{ server.service }}
