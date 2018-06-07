@@ -114,4 +114,23 @@ glusterfs_vol_{{ name }}_{{ key }}:
 {%- endfor %}
 {%- endif %}
 
+{%- if server.recover_peers is defined %}
+{%- for vol_name, vol_data in server.volumes.iteritems() %}
+{%- for brick in vol_data.bricks %}
+
+add_gluster_bricks_{{ vol_name }}_{{ brick }}:
+  cmd.run:
+    - name: "gluster volume add-brick {{ vol_name }} replica {{ vol_data.replica }} {{ brick }} force"
+    - unless: "gluster volume info {{ vol_name }} | grep {{ brick }}"
+    - require:
+      {%- if force_compatibility %}
+      - cmd: glusterfs_vol_{{ vol_name }}
+      {%- else %}
+      - glusterfs: glusterfs_vol_{{ vol_name }}
+      {%- endif %}
+
+{%- endfor %}
+{%- endfor %}
+{%- endif %}
+
 {%- endif %}
