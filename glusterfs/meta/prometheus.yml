@@ -22,7 +22,7 @@ server:
         service: glusterfs
       annotations:
         summary: "{%- endraw %}{{ monitoring.inodes_percent_used_minor_threshold_percent*100 }}%{%- raw %} of inodes are used on volume"
-        description: "{{ $value }}% of GlusterFS {{ $labels.volume }} volume inodes are used for more than 2 minutes."
+        description: "{{ $value }}% of GlusterFS {{ $labels.volume }} volume inodes are used for 2 minutes."
   {%- endraw %}
     GlusterfsServiceMinor:
       if: >-
@@ -45,7 +45,7 @@ server:
         service: glusterfs
       annotations:
         summary: "{%- endraw %}{{ monitoring.inodes_percent_used_major_threshold_percent*100 }}%{%- raw %} of inodes are used on volume"
-        description: "{{ $value }}% of GlusterFS {{ $labels.volume }} volume inodes are used for more than 2 minutes."
+        description: "{{ $value }}% of GlusterFS {{ $labels.volume }} volume inodes are used for 2 minutes."
   {%- endraw %}
     GlusterfsSpaceUsedMinor:
       if: >-
@@ -57,7 +57,7 @@ server:
         service: glusterfs
       annotations:
         summary: "{%- endraw %}{{ monitoring.space_percent_used_minor_threshold_percent*100 }}%{%- raw %} of disk space is used on volume"
-        description: "{{ $value }}% of GlusterFS {{ $labels.volume }} volume disk space is used for more than 2 minutes."
+        description: "{{ $value }}% of GlusterFS {{ $labels.volume }} volume disk space is used for 2 minutes."
   {%- endraw %}
     GlusterfsSpaceUsedMajor:
       if: >-
@@ -69,6 +69,6 @@ server:
         service: glusterfs
       annotations:
         summary: "{%- endraw %}{{ monitoring.space_percent_used_major_threshold_percent*100 }}%{%- raw %} of disk space is used on volume"
-        description: "{{ $value }}% of GlusterFS {{ $labels.volume }} volume disk space is used for more than 2 minutes."
+        description: "{{ $value }}% of GlusterFS {{ $labels.volume }} volume disk space is used for 2 minutes."
   {%- endraw %}
 {%- endif %}
