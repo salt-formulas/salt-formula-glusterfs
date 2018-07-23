@@ -1,7 +1,14 @@
+{# Backward compatibility issue, remove when old versions (<3.11.3) are not used any more #}
+{% if salt['pkg.version_cmp'](salt['pkg.version']('glusterfs-server'), '3.11.3') >= 0 %}
+    {% set systemd_service = 'glusterd' %}
+{% else %}
+    {% set systemd_service = 'glusterfs-server' %}
+{% endif %}
+
 {% set server = salt['grains.filter_by']({
     'Debian': {
         'pkgs': ['glusterfs-server','bc', 'attr'],
-        'service': 'glusterfs-server',
+        'service': systemd_service,
     },
     'RedHat': {
         'pkgs': ['glusterfs-server','bc'],
