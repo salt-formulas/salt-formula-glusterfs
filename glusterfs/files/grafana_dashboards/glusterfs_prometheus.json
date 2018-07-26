@@ -601,7 +601,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "glusterfs_space_used{peer=\"^$peer\",volume=~\"^$volume$\"}",
+          "expr": "glusterfs_space_used{peer=~\"^$peer\",volume=~\"^$volume$\"}",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "used ({{ volume }})",
@@ -813,7 +813,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "glusterfs_space_used{peer=\"^$peer\",volume=~\"^$volume$\"}",
+          "expr": "glusterfs_space_used{peer=~\"^$peer\",volume=~\"^$volume$\"}",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "used ({{ volume }})",
@@ -1027,7 +1027,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "glusterfs_space_used{peer=\"^$peer\",volume=~\"^$volume$\"}",
+          "expr": "glusterfs_space_used{peer=~\"^$peer\",volume=~\"^$volume$\"}",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "used ({{ volume }})",
