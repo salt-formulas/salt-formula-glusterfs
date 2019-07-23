@@ -1,60 +1,37 @@
-=========
-GlusterFS
-=========
+=====
+Usage
+=====
 
-Install and configure GlusterFS server and client.
+Installs and configures GlusterFS server and client.
 
 Available states
 ================
 
-.. contents::
-    :local:
+* ``glusterfs.server``
+   Sets up GlusterFS server (including both service and setup)
 
-``glusterfs.server``
---------------------
+* ``glusterfs.server.service``
+   Sets up and start GlusterFS server service
 
-Setup GlusterFS server (including both service and setup)
+* ``glusterfs.server.setup``
+   Sets up GlusterFS peers and volumes
 
-``glusterfs.server.service``
-----------------------------
-
-Setup and start GlusterFS server service
-
-``glusterfs.server.setup``
-----------------------------
-
-Setup GlusterFS peers and volumes
-
-``glusterfs.client``
---------------------
-
-Setup GlusterFS client
+* ``glusterfs.client``
+   Sets up GlusterFS client
 
 Available metadata
 ==================
 
-.. contents::
-    :local:
+* ``metadata.glusterfs.server``
+   Sets up basic server
 
-``metadata.glusterfs.server``
------------------------------
+* ``metadata.glusterfs.client``
+   Sets up client only
 
-Setup basic server
-
-
-``metadata.glusterfs.client``
------------------------------
-
-Setup client only
-
-Configuration parameters
-========================
-
-
-Example reclass
+Example Reclass
 ===============
 
-Example for distributed glance images storage where every control node is
+Example for distributed Glance images storage where every control node is
 gluster peer.
 
 .. code-block:: yaml
@@ -156,32 +133,26 @@ Read more
 Documentation and Bugs
 ======================
 
-To learn how to install and update salt-formulas, consult the documentation
-available online at:
+* http://salt-formulas.readthedocs.io/
+   Learn how to install and update salt-formulas
 
-    http://salt-formulas.readthedocs.io/
+* https://github.com/salt-formulas/salt-formula-glusterfs/issues
+   In the unfortunate event that bugs are discovered, report the issue to the
+   appropriate issue tracker. Use the Github issue tracker for a specific salt
+   formula
 
-In the unfortunate event that bugs are discovered, they should be reported to
-the appropriate issue tracker. Use Github issue tracker for specific salt
-formula:
+* https://launchpad.net/salt-formulas
+   For feature requests, bug reports, or blueprints affecting the entire
+   ecosystem, use the Launchpad salt-formulas project
 
-    https://github.com/salt-formulas/salt-formula-glusterfs/issues
+* https://launchpad.net/~salt-formulas-users
+   Join the salt-formulas-users team and subscribe to mailing list if required
 
-For feature requests, bug reports or blueprints affecting entire ecosystem,
-use Launchpad salt-formulas project:
+* https://github.com/salt-formulas/salt-formula-glusterfs
+   Develop the salt-formulas projects in the master branch and then submit pull
+   requests against a specific formula
 
-    https://launchpad.net/salt-formulas
+* #salt-formulas @ irc.freenode.net
+   Use this IRC channel in case of any questions or feedback which is always
+   welcome
 
-You can also join salt-formulas-users team and subscribe to mailing list:
-
-    https://launchpad.net/~salt-formulas-users
-
-Developers wishing to work on the salt-formulas projects should always base
-their work on master branch and submit pull request against specific formula.
-
-    https://github.com/salt-formulas/salt-formula-glusterfs
-
-Any questions or feedback is always welcome so feel free to join our IRC
-channel:
-
-    #salt-formulas @ irc.freenode.net
