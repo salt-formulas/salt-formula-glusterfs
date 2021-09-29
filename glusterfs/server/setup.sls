@@ -36,7 +36,7 @@ glusterfs_peers_wait:
 {%- endif %}
 
 {%- if server.volumes is defined %}
-{%- for name, volume in server.volumes.iteritems() %}
+{%- for name, volume in server.volumes.items() %}
 
 {%- if force_compatibility %}
 
