@@ -8,7 +8,7 @@ glusterfs_packages:
 
 
 {%- if server.recover_peers is defined %}
-{%- for peer_name, peer_data in server.recover_peers.iteritems() %}
+{%- for peer_name, peer_data in server.recover_peers.items() %}
 {%- if peer_data.get('enabled', False) and grains.get('fqdn', 'unknown') == peer_name %}
 
 force_peer_uuid:
@@ -56,7 +56,7 @@ glusterfs_server_systemd_override:
 {%- endif %}
 
 {%- if server.volumes is defined %}
-{%- for name, volume in server.volumes.iteritems() %}
+{%- for name, volume in server.volumes.items() %}
 
 gluster_volume_{{ volume.storage }}:
   file.directory:
