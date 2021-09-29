@@ -7,7 +7,7 @@ glusterfs_client_packages:
     - names: {{ client.pkgs }}
 
 {%- if client.volumes is defined %}
-{%- for name, volume in client.volumes.iteritems() %}
+{%- for name, volume in client.volumes.items() %}
 
 {%- if grains.get('init', None) == 'systemd' %}
 {#- Don't use fstab when on systemd-enabled system,
